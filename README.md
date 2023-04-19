@@ -1,0 +1,1 @@
+This repository contains tasks that help with preparing for interviews
