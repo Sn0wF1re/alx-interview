@@ -2,6 +2,8 @@
 """
 Pascal triangle
 """
+
+
 def pascal_triangle(n):
     """
     Creates a pascal triangle
