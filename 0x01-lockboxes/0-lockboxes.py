@@ -14,14 +14,11 @@ def canUnlockAll(boxes):
     if not boxes or not isinstance(boxes, list):
         return False
 
-    keys = set((0,))
+    keys = [0]
+    length = len(boxes)
 
-    for i in range(len(boxes)):
+    for i in keys:
         for k in boxes[i]:
-            if k < len(boxes):
-                keys.add(k)
-
-    for x in range(len(boxes)):
-        if x not in keys:
-            return False
-    return True
+            if k not in keys and k < length:
+                keys.append(k)
+    return len(keys) == length
