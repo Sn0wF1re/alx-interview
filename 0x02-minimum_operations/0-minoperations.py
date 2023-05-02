@@ -14,37 +14,21 @@ def minOperations(n: int) -> int:
     Returns:
         0 if impossible, number of times if successful
     """
+    if n < 1:
+        return 0
+
     pasted = 1
-    copied = 0
+    copied = 1
     count = 0
 
     while pasted < n:
-        if copied == 0:
-            # copy from pasted
-            copied = pasted
-            count += 1
-
-        if pasted == 1:
-            # paste from copied
-            pasted += copied
-            count += 1
-            # continue with loop
-            continue
-
-        # check for remainder
-        rem = n - pasted
-
-        # check whether copied has more than needed
-        if rem < copied:
-            return 0
-
-        if rem % pasted == 0:
-            # copy and paste then increment counter by 2
+        if n % pasted == 0:
+            # copy from pasted then paste
             copied = pasted
             pasted += copied
             count += 2
         else:
-            # paste from what's already copied
+            # paste from what is already copied
             pasted += copied
             count += 1
 
