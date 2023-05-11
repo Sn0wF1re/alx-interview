@@ -23,22 +23,22 @@ try:
         if len(data_list) > 3:
             total_size += int(data_list[-1])
             status_code = data_list[-2]
-            if status_code in code_count.keys():
+            if status_code in code_count:
                 code_count[status_code] += 1
             counter += 1
 
         if counter == 10:
-            print(f"File size: {total_size}")
+            print("File size: {}".format(total_size))
             for k, v in sorted(code_count.items()):
                 if v > 0:
-                    print(f"{k}: {v}")
+                    print("{}: {}".format(k, v))
             counter = 0
 
 except Exception:
     pass
 
 finally:
-    print(f"File size: {total_size}")
+    print("File size: {}".format(total_size))
     for k, v in sorted(code_count.items()):
         if v > 0:
-            print(f"{k}: {v}")
+            print("{}: {}".format(k, v))
