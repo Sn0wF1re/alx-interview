@@ -22,6 +22,8 @@ def validUTF8(data):
             while mask & num:
                 subsequent_bytes += 1
                 mask >>= 1
+            if not subsequent_bytes:
+                continue
             if subsequent_bytes == 1 or subsequent_bytes > 4:
                 return False
 
