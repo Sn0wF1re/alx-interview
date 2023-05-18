@@ -11,24 +11,19 @@ def validUTF8(data):
     subsequent_bytes = 0
 
     for num in data:
-        binary = bin(num)[2:].zfill(8)
-        if subsequent_bytes == 0:
-            if binary.startswith('0'):
-                continue
-            elif binary.startswith('110'):
-                subsequent_bytes = 1
-            elif binary.startswith('1110'):
-                subsequent_bytes = 2
-            elif binary.startswith('11110'):
-                subsequent_bytes = 3
-            else:
+        # Check if the current byte is a continuation byte
+        if subsequent_bytes:
+            if num >> 6 != 0b10:
                 return False
+            subsequent_bytes -= 1
+        else:
+            # Check the number of bytes to follow based on the first byte
+            mask = 0b10000000
+            while mask & num:
+                subsequent_bytes += 1
+                mask >>= 1
             if subsequent_bytes == 1 or subsequent_bytes > 4:
                 return False
 
-        else:
-            if not binary.startswith('10'):
-                return False
-        subsequent_bytes -= 1
-
+    # Check if there are any remaining bytes expected to follow
     return subsequent_bytes == 0
