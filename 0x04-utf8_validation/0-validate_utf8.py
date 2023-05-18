@@ -28,7 +28,5 @@ def validUTF8(data):
             if not binary.startswith('10'):
                 return False
             subsequent_bytes -= 1
-        if subsequent_bytes < 0:
-            return False
 
     return subsequent_bytes == 0
