@@ -23,6 +23,8 @@ def validUTF8(data):
                 subsequent_bytes = 3
             else:
                 return False
+            if subsequent_bytes == 1 or subsequent_bytes > 4:
+                return False
 
         else:
             if not binary.startswith('10'):
