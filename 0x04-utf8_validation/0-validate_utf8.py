@@ -15,7 +15,6 @@ def validUTF8(data):
         if subsequent_bytes:
             if num >> 6 != 0b10:
                 return False
-            subsequent_bytes -= 1
         else:
             # Check the number of bytes to follow based on the first byte
             mask = 0b10000000
@@ -26,6 +25,7 @@ def validUTF8(data):
                 continue
             if subsequent_bytes == 1 or subsequent_bytes > 4:
                 return False
+        subsequent_bytes -= 1
 
     # Check if there are any remaining bytes expected to follow
     return subsequent_bytes == 0
