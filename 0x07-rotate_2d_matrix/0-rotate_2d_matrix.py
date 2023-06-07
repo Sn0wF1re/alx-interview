@@ -10,10 +10,8 @@ def rotate_2d_matrix(matrix):
     """
     length = len(matrix)
     for i in range(length):
-        j = 0
-        while j < i:
+        for j in range(i + 1, length):
             matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-            j += 1
 
     for i in range(length):
         matrix[i] = matrix[i][::-1]
