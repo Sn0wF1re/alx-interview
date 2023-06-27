@@ -30,14 +30,15 @@ def isWinner(x, nums):
     for num in nums:
         if num == 1:
             wins['Ben'] += 1
-        picks = sum(1 for prime in primes if prime <= num)
-        # if picks is even, Ben wins directly
-        if picks % 2 == 0:
-            wins['Ben'] += 1
-
-        # Maria wins if picks is odd
         else:
-            wins['Maria'] += 1
+            picks = sum(1 for prime in primes if prime <= num)
+            # if picks is even, Ben wins directly
+            if picks % 2 == 0:
+                wins['Ben'] += 1
+
+            # Maria wins if picks is odd
+            else:
+                wins['Maria'] += 1
 
     max_val = max(wins.values())
     winners = [player for player, score in wins.items() if score == max_val]
