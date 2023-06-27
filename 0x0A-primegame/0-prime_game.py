@@ -8,42 +8,44 @@ def is_prime(n):
     """
     Check if number is a prime number
     """
-    primes = [True] * (n + 1)
-    primes[0] = primes[1] = False
+    primes = []
+    prime_flags = [True] * (n + 1)
+    prime_flags[0] = prime_flags[1] = False
 
     p = 2
     while p * p <= n:
-        if primes[p]:
+        if prime_flags[p]:
+            primes.append(p)
             for i in range(p * p, n + 1, p):
-                primes[i] = False
+                prime_flags[i] = False
         p += 1
-    return [i for i, val in enumerate(primes) if val]
+    for num in range(p, n + 1):
+        if prime_flags[num] and num not in primes:
+            primes.append(num)
+    return primes
 
 
 def isWinner(x, nums):
     """
     Find winner of prime game after x rounds
     """
-    wins = {'Ben': 0, 'Maria': 0}
-    primes = is_prime(max(nums))
+    maria_wins = 0
+    ben_wins = 0
 
-    for num in nums:
-        if num == 1:
-            wins['Ben'] += 1
+    for n in nums:
+        if n < 2:
+            ben_wins += 1
         else:
-            picks = sum(1 for prime in primes if prime <= num)
-            # if picks is even, Ben wins directly
-            if picks % 2 == 0:
-                wins['Ben'] += 1
+            primes = is_prime(n)
 
-            # Maria wins if picks is odd
+            if len(primes) % 2 == 0:
+                ben_wins += 1
             else:
-                wins['Maria'] += 1
+                maria_wins += 1
 
-    max_val = max(wins.values())
-    winners = [player for player, score in wins.items() if score == max_val]
-
-    if len(winners) == 1:
-        return winners[0]
+    if maria_wins > ben_wins:
+        return "Maria"
+    elif ben_wins > maria_wins:
+        return "Ben"
     else:
         return None
