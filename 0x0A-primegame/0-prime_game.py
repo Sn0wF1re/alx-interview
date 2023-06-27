@@ -28,6 +28,8 @@ def isWinner(x, nums):
     primes = is_prime(max(nums))
 
     for num in nums:
+        if num == 1:
+            wins['Ben'] += 1
         picks = sum(1 for prime in primes if prime <= num)
         # if picks is even, Ben wins directly
         if picks % 2 == 0:
