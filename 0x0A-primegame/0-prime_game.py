@@ -1,4 +1,13 @@
+#!/usr/bin/python3
+"""
+Prime game
+"""
+
+
 def isWinner(x, nums):
+    """
+    Find winner of prime game after x rounds
+    """
     wins = {"Maria": 0, "Ben": 0}
 
     for n in nums:
