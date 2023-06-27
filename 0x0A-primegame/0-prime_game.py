@@ -4,17 +4,20 @@ Prime game
 """
 
 
-def is_prime(num):
+def is_prime(n):
     """
     Check if number is a prime number
     """
-    if num < 2:
-        return False
+    primes = [True] * (n + 1)
+    primes[0] = primes[1] = False
 
-    for i in range(2, int(num ** 0.5) + 1):
-        if num % i == 0:
-            return False
-    return True
+    p = 2
+    while p * p <= n:
+        if primes[p]:
+            for i in range(p * p, n + 1, p):
+                primes[i] = False
+        p += 1
+    return [i for i, val in enumerate(primes) if val]
 
 
 def isWinner(x, nums):
@@ -22,13 +25,15 @@ def isWinner(x, nums):
     Find winner of prime game after x rounds
     """
     wins = {'Ben': 0, 'Maria': 0}
-    for n in nums:
-        picks = 0
-        for i in range(2, n + 1):
-            if is_prime(i):
-                picks += 1
+    primes = is_prime(max(nums))
+
+    for num in nums:
+        picks = sum(1 for prime in primes if prime <= num)
+        # if picks is even, Ben wins directly
         if picks % 2 == 0:
             wins['Ben'] += 1
+
+        # Maria wins if picks is odd
         else:
             wins['Maria'] += 1
 
