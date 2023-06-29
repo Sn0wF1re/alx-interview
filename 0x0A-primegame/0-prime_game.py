@@ -10,10 +10,10 @@ def find_primes(nums):
     """
     n = max(nums)
     primes = [True] * (n + 1)
-    primes[0] = primes[1] = False
+    primes[0] = False
 
-    for i, is_prime in enumerate(primes, 2):
-        if not is_prime:
+    for i, is_prime in enumerate(primes, 1):
+        if i == 1 or not is_prime:
             continue
         for j in range(i + i, n + 1, i):
             primes[j - 1] = False
